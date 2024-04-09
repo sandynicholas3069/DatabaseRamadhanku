@@ -1,0 +1,36 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+CREATE TABLE `anak` (
+  `id_anak` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nama` VARCHAR(20) DEFAULT NULL,
+  `thn_lahir` INT(10) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id_anak`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+INSERT INTO `anak` (`id_anak`, `nama`, `thn_lahir`) VALUES
+(1, 'Andi Sukamto', 2014),
+(2, 'Indri Sukamto', 2016);
+
+CREATE TABLE `kegiatan` (
+  `id_kegiatan` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_anak` INT(10) UNSIGNED NOT NULL,
+  `ramadhan_ke` INT(10) UNSIGNED DEFAULT NULL,
+  `tanggal` DATE DEFAULT NULL,
+  `puasa` BOOLEAN DEFAULT FALSE,
+  `baca_alquran` BOOLEAN DEFAULT FALSE,
+  `tarawih` BOOLEAN DEFAULT FALSE,
+  `sedekah` BOOLEAN DEFAULT FALSE,
+  PRIMARY KEY (`id_kegiatan`),
+  KEY `id_anak` (`id_anak`),
+  CONSTRAINT `kegiatan_ibfk_1` FOREIGN KEY (`id_anak`) REFERENCES `anak` (`id_anak`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `anak`
+  MODIFY `id_anak` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+ALTER TABLE `kegiatan`
+  MODIFY `id_kegiatan` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+COMMIT;
